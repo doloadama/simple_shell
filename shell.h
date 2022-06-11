@@ -17,7 +17,7 @@
 char *_getcommandline(void);
 void get_env(char **env);
 int ctrld(char **args);
-
+char **tokenize(char *printl);
 
 
 
