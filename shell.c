@@ -1,5 +1,24 @@
 #include "shell.h"
 
+
+unsigned int flag;
+
+/**
+ * ctrlD - handles ^C signal interupt
+ * @uuv: unused variable (required for signal function prototype)
+ *
+ * Return: void
+ */
+static void ctrlD(int uuv)
+{
+(void) uuv;
+if (flag == 0)
+puts("\n$ ");
+else
+puts("\n");
+}
+
+
 /**
  * main - Main arguments functions
  * @argc: Count of argumnents
@@ -8,6 +27,7 @@
  * Return: _exit = 0.
  */
 
+
 int main(int argc __attribute__((unused)), char **argv, char **env)
 {
 size_t len_buffer = 0;
@@ -15,7 +35,7 @@ unsigned int is_pipe = 0, i;
 vars_t vars = {NULL, NULL, NULL, 0, NULL, 0, NULL};
 
 vars.argv = argv;
-vars.env = make_env(env);
+vars.env = mk_env(env);
 signal(SIGINT, ctrlD);
 if (!isatty(STDIN_FILENO))
 is_pipe = 1;
