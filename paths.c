@@ -84,11 +84,11 @@ else
 path = find_path(vars->env);
 if (path != NULL)
 {
-path_dup = _strdup(path + 5);
+path_dup = strdup(path + 5);
 path_tokens = tokenize(path_dup, ":");
 for (i = 0; path_tokens && path_tokens[i]; i++, free(check))
 {
-check = _strcat(path_tokens[i], vars->av[0]);
+check = strcat(path_tokens[i], vars->av[0]);
 if (stat(check, &buf) == 0)
 {
 r = path_execute(check, vars);
@@ -140,7 +140,8 @@ print_error(vars, NULL);
 else
 {
 wait(&vars->status);
-				if (WIFEXITED(vars->status))					vars->status = WEXITSTATUS(vars->status);
+if (WIFEXITED(vars->status))
+vars->status = WEXITSTATUS(vars->status);
 else if (WIFSIGNALED(vars->status) && WTERMSIG(vars->status) == SIGINT)
 vars->status = 130;
 return (0);

@@ -7,7 +7,7 @@
  */
 
 
-char **mke_env(char **env)
+char **mk_env(char **env)
 {
 char **new_env = NULL;
 int i;
@@ -20,7 +20,7 @@ perror("ERROR");
 exit(1);
 }
 for (i = 0; env[i] != NULL; i++)
-new_env[i] = _strdup(env[i]);
+new_env[i] = strdup(env[i]);
 new_env[i] = NULL;
 return (new_env);
 }

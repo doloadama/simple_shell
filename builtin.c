@@ -49,7 +49,7 @@ char **find_key(char **env, char *key)
 {
 unsigned int i, j, len;
 
-len = _strlen(key);
+len = strlen(key);
 for (i = 0; env[i] != NULL; i++)
 {
 for (j = 0; j < len; j++)

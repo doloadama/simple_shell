@@ -48,7 +48,6 @@ char **mk_env(char **env);
 void free_env(char **env);
 
 char **tokenize(char *buffer, char *delimiter);
-char **_realloc(char **ptr, size_t *size);
 char *new_strtok(char *str, const char *delim);
 
 void (*check_for_builtins(vars_t *vars))(vars_t *vars);
@@ -70,6 +69,6 @@ int check_for_dir(char *str);
 void print_error(vars_t *vars, char *msg);
 void _puts2(char *str);
 
-static void ctrlD(int uuv);
+void ctrlD(int uuv);
 
 #endif /* _SHELL_H_ */

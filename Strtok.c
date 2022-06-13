@@ -44,7 +44,7 @@ if (token_start == NULL)
 return (NULL);
 for (i = 0; next_token[i] != '\0'; i++)
 {
-if (check_match(next_token[i], delim) == 0)
+if (matching(next_token[i], delim) == 0)
 break;
 }
 if (next_token[i] == '\0' || next_token[i] == '#')
@@ -56,7 +56,7 @@ token_start = next_token + i;
 next_token = token_start;
 for (i = 0; next_token[i] != '\0'; i++)
 {
-if (check_match(next_token[i], delim) == 1)
+if (matching(next_token[i], delim) == 1)
 break;
 }
 if (next_token[i] == '\0')
