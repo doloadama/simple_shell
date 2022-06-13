@@ -1,45 +1,38 @@
 #include "shell.h"
-#include <string.h>
 
 /**
- * tokenize - tokenizes a stirng
- * @pointl: what the user inputed
- * Return: a ptr to arr of ptrs
+ * tokenize - tokenizes a buffer with a delimiter
+ * @tampon: buffer to tokenize
+ * @delim: delimiter to tokenize along
+ *
+ * Return: pointer to an array of pointers to the tokens
  */
-
-char **tokenize(char *pointl)
+char **tokenize(char *tampon, char *delim)
 {
+char **jeton = NULL;
+int i = 0, count = 10;
 
-char **uticom = NULL;
-char *jeton = NULL;
-
-int i = 0;
-int taille = 0;
-
-if (pointl == NULL)
+if (tampon == NULL)
 return (NULL);
-
-for (i = 0; pointl[i]; i++)
+jeton = malloc(sizeof(char *) * count);
+if (jeton == NULL)
 {
-if (pointl[i] == ' ')
-taille++;
+perror("Fatal Error");
+return (NULL);
 }
-
-if ((taille + 1) == strlen(pointl))
-return (NULL);
-
-uticom = malloc(sizeof(char *) *(taille + 2));
-
-if (uticom == NULL)
-return (NULL);
-   
-jeton = strtok(pointl, "\n\t\r"); 
-
-for (i = 0; jeton != NULL; i++)
+while ((jeton[i] = new_strtok(tampon, delim)) != NULL)
 {
-uticom[i] = jeton;
-jeton = strtok(NULL, "\n\t\r");
+i++;
+if (i == count)
+{
+jeton = _realloc(jeton, &count);
+if (jeton == NULL)
+{
+perror("Fatal Error");
+return (NULL);
 }
-uticom[i] = NULL;
-return (uticom);
+}
+jeton = NULL;
+}
+return (jeton);
 }
