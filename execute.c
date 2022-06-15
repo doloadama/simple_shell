@@ -71,7 +71,7 @@ return (1);
  * @args: List of args.  Not examined.
  * Return: Always returns 0, to terminate execution.
  */
-/*
+/**
 int lsh_exit(char **args)
 {
 (void)args;
