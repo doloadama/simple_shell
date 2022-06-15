@@ -106,7 +106,7 @@ int _fork_fun(char **arg, char **av, char **env, char *lineptr, int np, int c)
 
 pid_t child;
 int status, i = 0;
-char *format = "%s: %d: %s: not found\n";
+char *format = "%s: %d: %s: No such file or directory\n";
 
 if (arg[0] == NULL)
 return (1);
