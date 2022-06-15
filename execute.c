@@ -71,13 +71,14 @@ return (1);
  * @args: List of args.  Not examined.
  * Return: Always returns 0, to terminate execution.
  */
+/*
 int lsh_exit(char **args)
 {
 (void)args;
 free(args);
 return (200);
 }
-
+*/
 /**
  * lsh_ctrld - builtin to handle "^D" call
  * @args: List of args.  Not examined.
