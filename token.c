@@ -1,38 +1,80 @@
 #include "shell.h"
 
 /**
-* tokenize - tokenizes a buffer with a delimiter
-* @buffer: buffer to tokenize
-* @delimiter: delimiter to tokenize along
-*
-* Return: pointer to an array of pointers to the tokens
+* _realloc - reallocate memory
+* @ptr: void variable pointer
+* @old_size: integer
+* @new_size: integer
+* Return: Null
 */
-char **tokenize(char *buffer, char *delimiter)
-{
-char **tokens = NULL;
-size_t i = 0, mcount = 10;
 
-if (buffer == NULL)
-return (NULL);
-tokens = malloc(sizeof(char *) * mcount);
-if (tokens == NULL)
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-perror("Fatal Error");
+
+char *new;
+unsigned int i;
+
+if (ptr == NULL)
+{
+new = malloc(new_size);
+return (new);
+}
+
+if (new_size == 0 && ptr != NULL)
+{
+free(ptr);
 return (NULL);
 }
-while ((tokens[i] = new_strtok(buffer, delimiter)) != NULL)
+
+if (new_size == old_size)
+return (ptr);
+
+new = malloc(new_size);
+
+if (new == NULL)
+return (NULL);
+
+for (i = 0; i < old_size; i++)
 {
+new[i] = ((char *)ptr)[i];
+}
+
+free(ptr);
+
+return (new);
+}
+
+/**
+* splits - function that create tokens
+* @line: is a char
+* @delim: is a char
+* Return: double pointer
+*/
+
+char **splits(char *line, char *delim)
+{
+char **pptoken;
+int buf = 1024, i = 0;
+
+pptoken = malloc(sizeof(char *) * buf);
+if (!pptoken)
+exit(99);
+
+pptoken[i] = strtok(line, delim);
 i++;
-if (i == mcount)
+while (1)
 {
-tokens = _realloc(tokens, &mcount);
-if (tokens == NULL)
+pptoken[i] = strtok(NULL, delim);
+if (i >= buf)
 {
-perror("Fatal Error");
-return (NULL);
+buf += buf;
+pptoken = _realloc(pptoken, buf, buf * (sizeof(char *)));
+if (!pptoken)
+exit(98);
 }
+if (pptoken[i] == NULL)
+break;
+i++;
 }
-buffer = NULL;
-}
-return (tokens);
+return (pptoken);
 }
