@@ -1,80 +1,38 @@
 #include "shell.h"
-
 /**
-* _realloc - reallocate memory
-* @ptr: void variable pointer
-* @old_size: integer
-* @new_size: integer
-* Return: Null
+* tokenize - tokenizes a stirng
+* @lineptr: what the user inputed
+* Return: a ptr to arr of ptrs
 */
 
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+char **tokenize(char *lineptr)
 {
+char **user_command = NULL;
+char *token = NULL;
+size_t i = 0;
+int size = 0;
 
-char *new;
-unsigned int i;
-
-if (ptr == NULL)
-{
-new = malloc(new_size);
-return (new);
-}
-
-if (new_size == 0 && ptr != NULL)
-{
-free(ptr);
-return (NULL);
-}
-
-if (new_size == old_size)
-return (ptr);
-
-new = malloc(new_size);
-
-if (new == NULL)
+if (lineptr == NULL)
 return (NULL);
 
-for (i = 0; i < old_size; i++)
+for (i = 0; lineptr[i]; i++)
 {
-new[i] = ((char *)ptr)[i];
+if (lineptr[i] == ' ')
+size++;
 }
+if ((size + 1) == _strlen(lineptr))
+return (NULL);
+user_command = malloc(sizeof(char *) * (size + 2));
+if (user_command == NULL)
+return (NULL);
 
-free(ptr);
+token = strtok(lineptr, " \n\t\r");
 
-return (new);
-}
-
-/**
-* splits - function that create tokens
-* @line: is a char
-* @delim: is a char
-* Return: double pointer
-*/
-
-char **splits(char *line, char *delim)
+for (i = 0; token != NULL; i++)
 {
-char **pptoken;
-int buf = 1024, i = 0;
-
-pptoken = malloc(sizeof(char *) * buf);
-if (!pptoken)
-exit(99);
-
-pptoken[i] = strtok(line, delim);
-i++;
-while (1)
-{
-pptoken[i] = strtok(NULL, delim);
-if (i >= buf)
-{
-buf += buf;
-pptoken = _realloc(pptoken, buf, buf * (sizeof(char *)));
-if (!pptoken)
-exit(98);
+user_command[i] = token;
+token = strtok(NULL, " \n\t\r");
 }
-if (pptoken[i] == NULL)
-break;
-i++;
-}
-return (pptoken);
+user_command[i] = NULL;
+return (user_command);
 }
